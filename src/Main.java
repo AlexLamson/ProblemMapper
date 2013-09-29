@@ -97,6 +97,15 @@ public class Main extends Applet implements Runnable
 		line.render(g);
 		
 		
+		int y = mse.y;
+		int lineY = pixel.height/2;
+		if(y >= lineY - 30 && y <= lineY + 30)
+		{
+			g.setColor(new Color(180, 180, 180, 255/2));
+			g.fillOval(mse.x-10, lineY-10, 20, 20);
+		}
+		
+		
 		g = getGraphics();
 
 		g.drawImage(screen, 0, 0, size.width, size.height, 0, 0, pixel.width, pixel.height, null);

@@ -30,7 +30,7 @@ public class ProblemLine
 		double circleRadius = 10;	//radi of the circles on the ends of the line
 		
 		int lineY = height/2;				//y value of both ends
-		int lineX1 = (int)(notLine*width)	//x value of left side
+		int lineX1 = (int)(notLine*width);	//x value of left side
 		int lineX2 = width-lineX1;			//x value of right side
 		
 		BasicStroke normalStroke = new BasicStroke();
@@ -47,7 +47,7 @@ public class ProblemLine
 		//draw the circles on the ends
 		g2.setColor(Color.black);
 		g2.setStroke(normalStroke);
-		g2.fillOval((int)(lineX1-circleRadius), (int)(lineY-circleRadius), (int)(lineX1+circleRadius), (int)(lineY+circleRadius))
-		g2.fillOval((int)(lineX2-circleRadius), (int)(lineY-circleRadius), (int)(lineX2+circleRadius), (int)(lineY+circleRadius))
+		g2.fillOval((int)(lineX1-circleRadius), (int)(lineY-circleRadius), (int)circleRadius*2, (int)circleRadius*2);
+		g2.fillOval((int)(lineX2-circleRadius), (int)(lineY-circleRadius), (int)circleRadius*2, (int)circleRadius*2);
 	}
 }

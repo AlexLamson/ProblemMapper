@@ -1,7 +1,7 @@
-public ID
+public class ID
 {
 	public static long nextVal = 0;
-	public static final long val;
+	public static long val = 0;
 	
 	public ID()
 	{
