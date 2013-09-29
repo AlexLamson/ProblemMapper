@@ -43,7 +43,7 @@ public class Main extends Applet implements Runnable
 
 	private Image screen;
 	public static JFrame frame;
-	//put objects here
+	public static ProblemLine line;
 	
 	public Main()
 	{
@@ -58,7 +58,7 @@ public class Main extends Applet implements Runnable
 
 	public void start()
 	{
-		//define objects here
+		line = new ProblemLine(pixel.width, pixel.height);
 		
 		
 		addKeyListener(new Listening());
@@ -82,18 +82,19 @@ public class Main extends Applet implements Runnable
 //		if(frame.getWidth() != realSize.width || frame.getHeight() != realSize.height)
 //			frame.pack();
 		
-		//call tick methods here
+		
+		line.tick();
 	}
 
 	public void render()
 	{
 		Graphics g = screen.getGraphics();
 
-		g.setColor(new Color(150, 150, 150));
+		g.setColor(new Color(230, 230, 230));
 		g.fillRect(0, 0, pixel.width, pixel.height);
 		
 		
-		//call render methods here
+		line.render(g);
 		
 		
 		g = getGraphics();
@@ -106,8 +107,8 @@ public class Main extends Applet implements Runnable
 	{
 		screen = createVolatileImage(pixel.width, pixel.height);	//actually use the graphics card (less lag)
 		
-		render();
-		JOptionPane.showMessageDialog(null, "Controls:\n\nWho knows!?");
+		// render();
+		// JOptionPane.showMessageDialog(null, "Controls:\n\nWho knows!?");
 		
 		while(isRunning)
 		{
