@@ -2,7 +2,7 @@
  * Problem Mapper program
  * 
  * Controls:
- * (to be determined later)
+ * left click - create a problem
  */
 
 import java.applet.*;
@@ -16,9 +16,9 @@ import javax.swing.*;
 
 public class Main extends Applet implements Runnable
 {
-	private static final long serialVersionUID = 8864158495101925325L;				//because stupid warnings
+	private static final long serialVersionUID = 8864158495101925325L;		//because stupid warnings
 	
-	public static int pixelSize = 1;												//change the scale the pixels are multiplied by when drawn to
+	public static int pixelSize = 1;										//change the scale the pixels are multiplied by when drawn to
 	
 	public static int computerSpeed = 10;		//higher number for slower computers
 	public static int tickTime = 5;
@@ -61,7 +61,7 @@ public class Main extends Applet implements Runnable
 
 	public void start()
 	{
-		line = new ProblemLine(pixel.width*2, pixel.height);
+		line = new ProblemLine(pixel.width, pixel.height);
 		
 		
 		addKeyListener(new Listening());

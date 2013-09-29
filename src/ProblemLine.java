@@ -23,19 +23,42 @@ public class ProblemLine
 	
 	public void addProblem(int x)
 	{
-		if(isValidPos(x))
-			probList.add(new VisualProblemSolution(x, height/2));
-	}
-	
-	public boolean isValidPos(int x)
-	{
-		//far enough away from ends of line
-		if(x-VisualProblemSolution.width/2 > linePadding && x+VisualProblemSolution.width/2 < width-linePadding-circleRadius)
+		if(!isValidPos(x))
+			return;
+		
+		//determine where to add in arraylist based on x val
+		int pos = probList.size();
+		if(probList.size() == 0)
+			pos = 0;
+		for(int i = 0; i < probList.size(); i++)
 		{
-			return true;
+			VisualProblemSolution vProb = probList.get(i);
+			if(x < vProb.x-VisualProblemSolution.width/2)
+			{
+				pos = i;
+				break;
+			}
 		}
 		
-		return false;
+		//add in the new problem
+		probList.add(pos, new VisualProblemSolution(x, height/2));
+		
+		//expand line to fit new problems
+		width = probList.size()*(VisualProblemSolution.width + VisualProblemSolution.padding) + VisualProblemSolution.padding + linePadding*2;
+		
+		//adjust x positions of problems
+		for(int i = 0; i < probList.size(); i++)
+		{
+			probList.get(i).x = linePadding+(VisualProblemSolution.padding+VisualProblemSolution.width)*(i+1)-VisualProblemSolution.width/2;
+		}
+	}
+	
+	//return false if x value is not in the bounds of the line
+	public boolean isValidPos(int x)
+	{
+		if(x < 0+linePadding || x > width-linePadding)
+			return false;
+		return true;
 	}
 	
 	public void tick()
@@ -68,6 +91,8 @@ public class ProblemLine
 		g2.fillOval((int)(lineX2-circleRadius)-Main.camX, (int)(lineY-circleRadius), (int)circleRadius*2, (int)circleRadius*2);
 		
 		for(int i = 0; i < probList.size(); i++)
+		{
 			probList.get(i).render(g);
+		}
 	}
 }

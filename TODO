@@ -2,8 +2,7 @@ Practical
 
 * Create mock-ups in mypaint
 
-* prevent problems from overlapping
-   * the width of the line shoud be a function of the number of problems
+change how problems are added to allow squeezing problems in between other problems
 
 * spacing
    * all problems are spaced equally along line, and clicking in-between them creates a new problem-solution box, nudging all other problems to the sides

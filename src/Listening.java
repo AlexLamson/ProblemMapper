@@ -21,7 +21,7 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 			Main.moveCamLeft();
 			break;
 		case KeyEvent.VK_SPACE:
-			System.out.println("Space was pressed!");
+			
 			break;
 		}
 	}
@@ -80,10 +80,10 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 
 	public void mouseReleased(MouseEvent e)
 	{
-		mouseToggle(e, false);
-		
 		//if the mouse was close to the line, create a ProblemSolution at that point
-		Main.line.addProblem(Main.mse.x+Main.camX);
+		if(Main.isMouseLeft)
+			Main.line.addProblem(Main.mse.x+Main.camX);
+		mouseToggle(e, false);
 	}
 	
 	public static void mouseToggle(MouseEvent e, boolean toggle)
@@ -105,11 +105,13 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 	{
 		if(e.getWheelRotation() < 0)			//scrolled up
 		{
-			
+			Main.moveCamLeft();
+			Main.moveCamLeft();
 		}
 		else if(e.getWheelRotation() > 0)		//scrolled down
 		{
-			
+			Main.moveCamRight();
+			Main.moveCamRight();
 		}
 	}
 	
