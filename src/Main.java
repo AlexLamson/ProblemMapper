@@ -34,7 +34,10 @@ public class Main extends Applet implements Runnable
 	public static Dimension realSize;															//size of whole window
 	public static Dimension size = new Dimension(screenWidth*2/3,screenHeight*2/3);				//drawable area
 	public static Dimension pixel = new Dimension(size.width/pixelSize, size.height/pixelSize);	//"pixels" in drawable area
-
+	
+	public static int camX = 0;
+	public static int camSpeed = 10;
+	
 	public static Point mse = new Point(0, 0);
 
 	public static boolean isMouseLeft = false;
@@ -58,7 +61,7 @@ public class Main extends Applet implements Runnable
 
 	public void start()
 	{
-		line = new ProblemLine(pixel.width, pixel.height);
+		line = new ProblemLine(pixel.width*2, pixel.height);
 		
 		
 		addKeyListener(new Listening());
@@ -75,6 +78,19 @@ public class Main extends Applet implements Runnable
 	public void stop()
 	{
 		isRunning = false;
+	}
+
+	public static void moveCamRight()
+	{
+		Main.camX += Main.camSpeed;
+	}
+	
+	public static void moveCamLeft()
+	{
+		if(Main.camX-Main.camSpeed >= 0)
+				Main.camX -= Main.camSpeed;
+			else
+				Main.camX = 0;
 	}
 
 	public void tick()
@@ -97,7 +113,7 @@ public class Main extends Applet implements Runnable
 		line.render(g);
 		
 		
-		if(Listening.mouseIsCloseToLine())
+		if(Listening.mouseIsCloseToLine() && line.isValidPos(mse.x+camX))
 		{
 			if(isMouseLeft)
 				g.setColor(new Color(100, 100, 100, 255/2));
