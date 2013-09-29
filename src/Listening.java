@@ -75,6 +75,9 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 	public void mouseReleased(MouseEvent e)
 	{
 		mouseToggle(e, false);
+		
+		//if the mouse was close to the line, create a ProblemSolution at that point
+		Main.line.addProblem(Main.mse.x);
 	}
 	
 	public static void mouseToggle(MouseEvent e, boolean toggle)
@@ -110,5 +113,12 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 
 	public void mouseExited(MouseEvent e)
 	{
+	}
+	
+	public static boolean mouseIsCloseToLine()
+	{
+		int y = Main.mse.y;
+		int lineY = Main.pixel.height/2;
+		return (y >= lineY - 30 && y <= lineY + 30);
 	}
 }

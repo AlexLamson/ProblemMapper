@@ -97,12 +97,14 @@ public class Main extends Applet implements Runnable
 		line.render(g);
 		
 		
-		int y = mse.y;
-		int lineY = pixel.height/2;
-		if(y >= lineY - 30 && y <= lineY + 30)
+		if(Listening.mouseIsCloseToLine())
 		{
-			g.setColor(new Color(180, 180, 180, 255/2));
-			g.fillOval(mse.x-10, lineY-10, 20, 20);
+			if(isMouseLeft)
+				g.setColor(new Color(100, 100, 100, 255/2));
+			else
+				g.setColor(new Color(180, 180, 180, 255/2));
+			
+			g.fillOval(mse.x-10, pixel.height/2-10, 20, 20);
 		}
 		
 		

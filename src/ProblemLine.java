@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class ProblemLine
 {
 	public int width, height;
-	public ProblemList probList = new ProblemList();
+	public ArrayList<VisualProblemSolution> probList = new ArrayList<VisualProblemSolution>();
 	
 	public ProblemLine(int width, int height)
 	{
@@ -19,9 +19,15 @@ public class ProblemLine
 		this.height = height;
 	}
 	
+	public void addProblem(int x)
+	{
+		probList.add(new VisualProblemSolution(x, height/2, 100, 200));
+	}
+	
 	public void tick()
 	{
-		//do nothing
+		for(int i = 0; i < probList.size(); i++)
+			probList.get(i).tick();
 	}
 	
 	public void render(Graphics g)
@@ -49,5 +55,8 @@ public class ProblemLine
 		g2.setStroke(normalStroke);
 		g2.fillOval((int)(lineX1-circleRadius), (int)(lineY-circleRadius), (int)circleRadius*2, (int)circleRadius*2);
 		g2.fillOval((int)(lineX2-circleRadius), (int)(lineY-circleRadius), (int)circleRadius*2, (int)circleRadius*2);
+		
+		for(int i = 0; i < probList.size(); i++)
+			probList.get(i).render(g);
 	}
 }

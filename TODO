@@ -1,7 +1,10 @@
 Practical
 
 * Create mock-ups in mypaint
-
+* the size of the boxes must be fixed, across all screens
+   * you can scroll left and right along the line
+   * all problems are spaced equally along line, and clicking in-between them creates a new problem-solution box, nudging all other problems to the sides
+   * there is a fixed about of space between problems
 
 Conceptual
 
