@@ -23,8 +23,8 @@ public class VisualProblemSolution extends ProblemSolution
 	
 	public void render(Graphics g)
 	{
-		Color red = new Color(255, 0, 0);
-		Color green = new Color(0, 255, 0);
+		Color red = new Color(255, 108, 90);
+		Color green = new Color(183, 241, 140);
 		
 		g.setColor(green);
 		g.fillRect(x-width/2-Main.camX, y-height/2, width, height/2);
