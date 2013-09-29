@@ -82,15 +82,18 @@ public class Main extends Applet implements Runnable
 
 	public static void moveCamRight()
 	{
-		Main.camX += Main.camSpeed;
+		if(Main.camX+pixel.width+Main.camSpeed <= line.width)
+			Main.camX += Main.camSpeed;
+		else
+			Main.camX = line.width-pixel.width;
 	}
 	
 	public static void moveCamLeft()
 	{
 		if(Main.camX-Main.camSpeed >= 0)
 				Main.camX -= Main.camSpeed;
-			else
-				Main.camX = 0;
+		else
+			Main.camX = 0;
 	}
 
 	public void tick()
