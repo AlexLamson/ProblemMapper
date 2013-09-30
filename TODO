@@ -1,14 +1,15 @@
 Practical
 
-* Create mock-ups in mypaint
+* Add mock-ups to repo
+* Include a screenshot every time a commit is made
+* change how problems are added to allow squeezing problems in between other problems
 
-change how problems are added to allow squeezing problems in between other problems
-
-* spacing
+* Spacing
    * all problems are spaced equally along line, and clicking in-between them creates a new problem-solution box, nudging all other problems to the sides
    * there is a fixed about of space between problems
-* nesting
+* Nesting
    * each ProblemLine should have its own cam
+      * it should be possible to reliably render multiple ProblemLines
    * each Problem should contain 1 ProblemLine
 
 Conceptual
@@ -16,6 +17,6 @@ Conceptual
 * Changing criteria for a goal (this would entail changing essential problems to nonessential problems/removing essential problems)
 * Problem box with number on bottom right side linking to problem/solution that caused the problem?
 * Signify that a problem has sub-problems
-* problems have "due dates"
-* prioritizing problems
-* problem can be completed (removed?)
+* Due dates
+* Prioritization
+* Problem can be completed (fade problem to gray)
