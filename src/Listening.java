@@ -81,8 +81,17 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 	public void mouseReleased(MouseEvent e)
 	{
 		//if the mouse was close to the line, create a ProblemSolution at that point
-		if(Main.isMouseLeft)
-			Main.line.addProblem(Main.mse.x+Main.camX);
+		if(Main.isMouseLeft && mouseIsCloseToLine())
+		{
+			//if mouse was on green box
+				//expand the solutions
+			
+			//if mouse was on red box
+				//zoom into that problem
+			
+			//if mouse was not on a box
+			Main.line.addProblem(Main.mse.x+Main.line.camX);
+		}
 		mouseToggle(e, false);
 	}
 	
@@ -103,15 +112,16 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 
 	public void mouseWheelMoved(MouseWheelEvent e)
 	{
+		int times = 6;
 		if(e.getWheelRotation() < 0)			//scrolled up
 		{
-			Main.moveCamLeft();
-			Main.moveCamLeft();
+			for(int i = 0; i < times; i++)
+				Main.moveCamLeft();
 		}
 		else if(e.getWheelRotation() > 0)		//scrolled down
 		{
-			Main.moveCamRight();
-			Main.moveCamRight();
+			for(int i = 0; i < times; i++)
+				Main.moveCamRight();
 		}
 	}
 	

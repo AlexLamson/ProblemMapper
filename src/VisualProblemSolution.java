@@ -26,18 +26,22 @@ public class VisualProblemSolution extends ProblemSolution
 		Color red = new Color(255, 108, 90);
 		Color green = new Color(183, 241, 140);
 		
-		g.setColor(green);
-		g.fillRect(x-width/2-Main.camX, y-height/2, width, height/2);
-		
+		//fill problem
 		g.setColor(red);
-		g.fillRect(x-width/2-Main.camX, y, width, height/2);
+		g.fillRect(x-width/2-Main.line.camX, y, width, height/2);
 		
+		//fill solution
+		g.setColor(green);
+		g.fillRect(x-width/2-Main.line.camX, y-height/2, width, height/2);
+		
+		//draw black lines
 		g.setColor(Color.black);
-		g.drawRect(x-width/2-Main.camX, y-height/2, width, height);
-		g.drawLine(x-width/2-Main.camX, y, x+width/2-Main.camX, y);
+		g.drawRect(x-width/2-Main.line.camX, y-height/2, width, height);
+		g.drawLine(x-width/2-Main.line.camX, y, x+width/2-Main.line.camX, y);
 		
-		g.drawString("ID "+problem.id, x-width/2-Main.camX, y);
-		
-		g.drawString("ID "+solutions.get(selectedSolution).id, x-width/2-Main.camX, y+10);
+		//draw IDs
+		int IDwidth = 40, IDheight = 15;
+		g.drawString("ID "+problem.id, x+width/2-Main.line.camX - IDwidth, y-height/2 + IDheight);
+		g.drawString("ID "+solutions.get(selectedSolution).id, x+width/2-Main.line.camX - IDwidth, y + IDheight);
 	}
 }

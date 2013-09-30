@@ -35,7 +35,7 @@ public class Main extends Applet implements Runnable
 	public static Dimension size = new Dimension(screenWidth*2/3,screenHeight*2/3);				//drawable area
 	public static Dimension pixel = new Dimension(size.width/pixelSize, size.height/pixelSize);	//"pixels" in drawable area
 	
-	public static int camX = 0;
+//	public static int camX = 0;
 	public static int camSpeed = 10;
 	
 	public static Point mse = new Point(0, 0);
@@ -46,7 +46,7 @@ public class Main extends Applet implements Runnable
 
 	private Image screen;
 	public static JFrame frame;
-	public static ProblemLine line;
+	public static VisualProblemLine line;
 	
 	public Main()
 	{
@@ -61,8 +61,7 @@ public class Main extends Applet implements Runnable
 
 	public void start()
 	{
-		line = new ProblemLine(pixel.width, pixel.height);
-		
+		line = new VisualProblemLine(pixel.width, pixel.height);
 		
 		addKeyListener(new Listening());
 		addMouseListener(new Listening());
@@ -82,18 +81,18 @@ public class Main extends Applet implements Runnable
 
 	public static void moveCamRight()
 	{
-		if(Main.camX+pixel.width+Main.camSpeed <= line.width)
-			Main.camX += Main.camSpeed;
+		if(line.camX+pixel.width+Main.camSpeed <= line.width)
+			line.camX += Main.camSpeed;
 		else
-			Main.camX = line.width-pixel.width;
+			line.camX = line.width-pixel.width;
 	}
 	
 	public static void moveCamLeft()
 	{
-		if(Main.camX-Main.camSpeed >= 0)
-				Main.camX -= Main.camSpeed;
+		if(line.camX-Main.camSpeed >= 0)
+			line.camX -= Main.camSpeed;
 		else
-			Main.camX = 0;
+			line.camX = 0;
 	}
 
 	public void tick()
@@ -109,14 +108,28 @@ public class Main extends Applet implements Runnable
 	{
 		Graphics g = screen.getGraphics();
 
-		g.setColor(new Color(230, 230, 230));
-		g.fillRect(0, 0, pixel.width, pixel.height);
+		
+		
+		if(line.mainLine == line.selectedLine)
+		{
+			g.setColor(new Color(230, 230, 230));
+			g.fillRect(0, 0, pixel.width, pixel.height);
+		}
+		else
+		{
+			g.setColor(new Color(210, 240, 190));
+			g.fillRect(0, 0, pixel.width, pixel.height/2);
+			
+			g.setColor(new Color(255, 175, 165));
+			g.fillRect(0, pixel.height/2, pixel.width, pixel.height/2);
+		}
+		
 		
 		
 		line.render(g);
 		
 		
-		if(Listening.mouseIsCloseToLine() && line.isValidPos(mse.x+camX))
+		if(Listening.mouseIsCloseToLine() && line.isValidPos(mse.x+line.camX))
 		{
 			if(isMouseLeft)
 				g.setColor(new Color(100, 100, 100, 255/2));

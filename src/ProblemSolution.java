@@ -7,7 +7,9 @@ public class ProblemSolution
 {
 	public Problem problem = new Problem();
 	public ArrayList<Solution> solutions = new ArrayList<Solution>();
-	public int selectedSolution = 0;		//the currently selected soltion
+	public int selectedSolution = 0;		//the currently selected solution
+	
+	public ProblemLine innerLine = new ProblemLine();
 	
 	public ProblemSolution()
 	{
