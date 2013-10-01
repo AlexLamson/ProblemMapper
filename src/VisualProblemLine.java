@@ -18,7 +18,7 @@ public class VisualProblemLine
 	public int linePadding = 40;		//padding on sides of line
 	
 	public int camX = 0;
-	public ArrayList<Integer> breadcrumbs = new ArrayList<Integer>();
+	public ArrayList<ProblemLine> breadcrumbTrail = new ArrayList<ProblemLine>();	//list of the  problems entered
 	
 	public VisualProblemLine(int width, int height)
 	{
@@ -26,15 +26,41 @@ public class VisualProblemLine
 		this.height = height;
 	}
 	
+	//zoom into the selected problem (by position in the ArrayList)
 	public void zoomTo(int pos)
 	{
 		//zoom into that problem
 		if(pos == -1)
 			return;
 		
+		breadcrumbTrail.add(selectedLine);
 		Main.line.selectedLine = Main.line.selectedLine.probList.get(pos).innerLine;
 		Main.line.camX = 0;
 		adjustLine();
+	}
+	
+	//zoom out to the level above the current one
+	public void zoomOutALevel()
+	{
+		if(breadcrumbTrail.size() == 0)
+		{
+			zoomOutToMain();
+		}
+		else
+		{
+			Main.line.selectedLine = breadcrumbTrail.get(breadcrumbTrail.size()-1);
+			breadcrumbTrail.remove(breadcrumbTrail.size()-1);
+			adjustLine();
+			camX = 0;
+		}
+	}
+	
+	//zoom out to the main line
+	public void zoomOutToMain()
+	{
+		Main.line.selectedLine = Main.line.mainLine;
+		adjustLine();
+		Main.line.camX = 0;
 	}
 	
 	public void addProblem(int x)

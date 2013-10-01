@@ -108,10 +108,8 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 		}
 		else if(Main.isMouseRight)
 		{
-//			moveUpALevel();
-			//for now, move directly to the main line
-			Main.line.selectedLine = Main.line.mainLine;
-			Main.line.camX = 0;
+//			Main.line.zoomOut();
+			Main.line.zoomOutALevel();
 		}
 		mouseToggle(e, false);
 	}
