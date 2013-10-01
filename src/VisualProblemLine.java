@@ -34,7 +34,7 @@ public class VisualProblemLine
 		for(int i = 0; i < selectedLine.probList.size(); i++)
 		{
 			VisualProblemSolution vProb = selectedLine.probList.get(i);
-			if(x < vProb.x-VisualProblemSolution.width/2)
+			if(x < vProb.x-VisualProblemSolution.width/2 && !(x >= vProb.x-VisualProblemSolution.width/2 && x <= vProb.x+VisualProblemSolution.width/2))
 			{
 				pos = i;
 				break;
@@ -52,6 +52,41 @@ public class VisualProblemLine
 		{
 			selectedLine.probList.get(i).x = linePadding+(VisualProblemSolution.padding+VisualProblemSolution.width)*(i+1)-VisualProblemSolution.width/2;
 		}
+	}
+	
+	//returns -1 if x value isn't a problem
+	public int getProblemFromX(int x)
+	{
+		if(selectedLine.probList.size() == 0)		//there are no problems
+			return -1;
+		
+		if(!isValidPos(x))		//the point given is out of bounds
+			return -1;
+		
+		for(int i = 0; i < selectedLine.probList.size(); i++)
+		{
+			VisualProblemSolution vProb = selectedLine.probList.get(i);
+			if(x >= vProb.x-VisualProblemSolution.width/2 && x <= vProb.x+VisualProblemSolution.width/2)
+				return i;
+		}
+		return -1;
+	}
+	
+	//return true if the x value isn't on a problem box
+	public boolean isNotProblemBox(int x)
+	{
+		for(int i = 0; i < selectedLine.probList.size(); i++)
+		{
+			VisualProblemSolution vProb = selectedLine.probList.get(i);
+			if(x >= vProb.x-VisualProblemSolution.width/2 && x <= vProb.x+VisualProblemSolution.width/2)
+				return false;
+		}
+		return true;
+	}
+	
+	public boolean isProblemBox(int x)
+	{
+		return !isNotProblemBox(x);
 	}
 	
 	//return false if x value is not in the bounds of the line

@@ -83,14 +83,30 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 		//if the mouse was close to the line, create a ProblemSolution at that point
 		if(Main.isMouseLeft && mouseIsCloseToLine())
 		{
-			//if mouse was on green box
-				//expand the solutions
-			
-			//if mouse was on red box
-				//zoom into that problem
-			
-			//if mouse was not on a box
-			Main.line.addProblem(Main.mse.x+Main.line.camX);
+			if(Main.line.isProblemBox(Main.mse.x+Main.line.camX))	//if mouse was in box
+			{
+				if(Main.mse.y < Main.pixel.height/2)	//if mouse was on green box
+				{
+					//expand the solutions
+					
+				}
+				else	//if mouse was on red box
+				{
+					//zoom into that problem
+					int pos = Main.line.getProblemFromX(Main.mse.x+Main.line.camX);
+					if(pos != -1)	//if it was a legitimate box
+					{
+						System.out.println("mouse was in valid box");
+						Main.line.selectedLine = Main.line.selectedLine.probList.get(pos).innerLine;
+					}
+					
+				}
+			}
+			else		//if mouse wasn't in box
+			{
+				//if mouse was not on a box
+				Main.line.addProblem(Main.mse.x+Main.line.camX);
+			}
 		}
 		mouseToggle(e, false);
 	}

@@ -107,7 +107,7 @@ public class Main extends Applet implements Runnable
 	public void render()
 	{
 		Graphics g = screen.getGraphics();
-
+		
 		
 		
 		if(line.mainLine == line.selectedLine)
@@ -136,7 +136,8 @@ public class Main extends Applet implements Runnable
 			else
 				g.setColor(new Color(180, 180, 180, 255/2));
 			
-			g.fillOval(mse.x-10, pixel.height/2-10, 20, 20);
+			int circleSize = 20;
+			g.fillOval(mse.x-circleSize/2, pixel.height/2-circleSize/2, circleSize, circleSize);
 		}
 		
 		
