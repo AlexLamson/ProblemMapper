@@ -95,14 +95,9 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 				}
 				else	//if mouse was on red box
 				{
-					//zoom into that problem
+					//zoom in
 					int pos = Main.line.getProblemFromX(Main.mse.x+Main.line.camX);
-					if(pos != -1)	//if it was a legitimate box
-					{
-						Main.line.selectedLine = Main.line.selectedLine.probList.get(pos).innerLine;
-						Main.line.camX = 0;
-					}
-					
+					Main.line.zoomTo(pos);
 				}
 			}
 			else		//if mouse wasn't in box

@@ -13,7 +13,7 @@ public class VisualProblemLine
 	public ProblemLine mainLine = new ProblemLine();
 	public ProblemLine selectedLine = mainLine;
 	
-	public int width, height;
+	public int width, height;			//width and height of what is rendered
 	public double circleRadius = 10;	//radi of the circles on the ends of the line
 	public int linePadding = 40;		//padding on sides of line
 	
@@ -24,6 +24,17 @@ public class VisualProblemLine
 	{
 		this.width = width;
 		this.height = height;
+	}
+	
+	public void zoomTo(int pos)
+	{
+		//zoom into that problem
+		if(pos == -1)
+			return;
+		
+		Main.line.selectedLine = Main.line.selectedLine.probList.get(pos).innerLine;
+		Main.line.camX = 0;
+		adjustLine();
 	}
 	
 	public void addProblem(int x)
@@ -48,14 +59,25 @@ public class VisualProblemLine
 		//add in the new problem
 		selectedLine.probList.add(pos, new VisualProblemSolution(x, height/2));
 		
-		//expand line to fit new problems
-		width = selectedLine.probList.size()*(VisualProblemSolution.width + VisualProblemSolution.padding) + VisualProblemSolution.padding + linePadding*2;
+		adjustLine();
+	}
+	
+	//adjust line to fit current problems & equally space problems
+	public void adjustLine()
+	{
+		if(selectedLine.probList.size() == 0)
+		{
+			width = Main.pixel.width;
+		}
+		else
+		{
+			//expand line to fit new problems
+			width = selectedLine.probList.size()*(VisualProblemSolution.width + VisualProblemSolution.padding) + VisualProblemSolution.padding + linePadding*2;
+		}
 		
 		//adjust x positions of problems
 		for(int i = 0; i < selectedLine.probList.size(); i++)
-		{
 			selectedLine.probList.get(i).x = linePadding+(VisualProblemSolution.padding+VisualProblemSolution.width)*(i+1)-VisualProblemSolution.width/2;
-		}
 	}
 	
 	//returns -1 if x value isn't a problem
