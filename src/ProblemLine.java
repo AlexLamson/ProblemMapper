@@ -1,6 +1,5 @@
 //ProblemLine.java
-//renders the ProblemList
-
+//holds ArrayList of VisualProblemSolutions
 
 import java.util.ArrayList;
 

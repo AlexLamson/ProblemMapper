@@ -1,3 +1,6 @@
+//ID.java
+//holds a long to differentiate between problems and solutions
+
 public class ID
 {
 	public static long nextVal = 0;

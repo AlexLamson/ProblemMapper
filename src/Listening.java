@@ -1,3 +1,6 @@
+//Listening.java
+//deals with all keyboard and mouse input
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -96,8 +99,8 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 					int pos = Main.line.getProblemFromX(Main.mse.x+Main.line.camX);
 					if(pos != -1)	//if it was a legitimate box
 					{
-						System.out.println("mouse was in valid box");
 						Main.line.selectedLine = Main.line.selectedLine.probList.get(pos).innerLine;
+						Main.line.camX = 0;
 					}
 					
 				}
@@ -107,6 +110,13 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 				//if mouse was not on a box
 				Main.line.addProblem(Main.mse.x+Main.line.camX);
 			}
+		}
+		else if(Main.isMouseRight)
+		{
+//			moveUpALevel();
+			//for now, move directly to the main line
+			Main.line.selectedLine = Main.line.mainLine;
+			Main.line.camX = 0;
 		}
 		mouseToggle(e, false);
 	}

@@ -1,3 +1,6 @@
+//Main.java
+//holds main method, deals with ticks and rendering
+
 /*
  * Problem Mapper program
  * 

@@ -1,9 +1,12 @@
+//VisualProblemLine.java
+//holds the main ProblemLine and renders the currently selected ProblemLine
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-
+import java.util.ArrayList;
 
 public class VisualProblemLine
 {
@@ -15,6 +18,7 @@ public class VisualProblemLine
 	public int linePadding = 40;		//padding on sides of line
 	
 	public int camX = 0;
+	public ArrayList<Integer> breadcrumbs = new ArrayList<Integer>();
 	
 	public VisualProblemLine(int width, int height)
 	{
@@ -106,7 +110,7 @@ public class VisualProblemLine
 	public void render(Graphics g)
 	{
 		int lineY = height/2;		//y value of both ends
-		int lineX1 = linePadding;			//x value of left side
+		int lineX1 = linePadding;	//x value of left side
 		int lineX2 = width-lineX1;	//x value of right side
 		
 		BasicStroke normalStroke = new BasicStroke();
@@ -115,16 +119,33 @@ public class VisualProblemLine
 		Graphics2D g2 = (Graphics2D)g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
-		//draw the line
-		g2.setColor(Color.black);
-		g2.setStroke(thickStroke);
-		g2.drawLine(lineX1-camX, lineY, lineX2-camX, lineY);
-		
-		//draw the circles on the ends
-		g2.setColor(Color.black);
-		g2.setStroke(normalStroke);
-		g2.fillOval((int)(lineX1-circleRadius)-camX, (int)(lineY-circleRadius), (int)circleRadius*2, (int)circleRadius*2);
-		g2.fillOval((int)(lineX2-circleRadius)-camX, (int)(lineY-circleRadius), (int)circleRadius*2, (int)circleRadius*2);
+		if(mainLine == selectedLine)
+		{
+			//draw the line
+			g2.setColor(Color.black);
+			g2.setStroke(thickStroke);
+			g2.drawLine(lineX1-camX, lineY, lineX2-camX, lineY);
+			
+			//draw the circles on the ends
+			g2.setColor(Color.black);
+			g2.setStroke(normalStroke);
+			g2.fillOval((int)(lineX1-circleRadius)-camX, (int)(lineY-circleRadius), (int)circleRadius*2, (int)circleRadius*2);
+			g2.fillOval((int)(lineX2-circleRadius)-camX, (int)(lineY-circleRadius), (int)circleRadius*2, (int)circleRadius*2);
+		}
+		else
+		{
+			//draw the line
+			g2.setColor(Color.black);
+			g2.setStroke(thickStroke);
+			g2.drawLine(0-camX, lineY, width-camX, lineY);
+			
+			//draw the circles on the ends
+			g2.setColor(Color.black);
+			g2.setStroke(thickStroke);
+			g2.drawLine((int)(lineX1)-camX, 0, (int)(lineX1)-camX, height);
+			g2.drawLine((int)(lineX2)-camX, 0, (int)(lineX2)-camX, height);
+			g2.setStroke(normalStroke);
+		}
 		
 		for(int i = 0; i < selectedLine.probList.size(); i++)
 		{
