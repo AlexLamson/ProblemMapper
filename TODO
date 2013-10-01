@@ -1,16 +1,7 @@
 Practical
 
-* Add mock-ups to repo
-* Include a screenshot every time a commit is made
-* change how problems are added to allow squeezing problems in between other problems
-
-* Spacing
-   * all problems are spaced equally along line, and clicking in-between them creates a new problem-solution box, nudging all other problems to the sides
-   * there is a fixed about of space between problems
 * Nesting
-   * each ProblemLine should have its own cam
-      * it should be possible to reliably render multiple ProblemLines
-   * each Problem should contain 1 ProblemLine
+   * it should be possible to reliably render multiple ProblemLines
 
 Conceptual
 

@@ -185,7 +185,7 @@ public class VisualProblemLine
 			//draw the line
 			g2.setColor(Color.black);
 			g2.setStroke(thickStroke);
-			g2.drawLine(0-camX, lineY, width-camX, lineY);
+			g2.drawLine(0, lineY, Main.pixel.width, lineY);
 			
 			//draw the circles on the ends
 			g2.setColor(Color.black);
