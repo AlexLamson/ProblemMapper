@@ -84,9 +84,9 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 	public void mouseReleased(MouseEvent e)
 	{
 		//if the mouse was close to the line, create a ProblemSolution at that point
-		if(Main.isMouseLeft && mouseIsCloseToLine())
+		if(Main.isMouseLeft)
 		{
-			if(Main.line.isProblemBox(Main.mse.x+Main.line.camX))	//if mouse was in box
+			if(Main.line.isProblemBox(Main.mse.x+Main.line.camX) && mouseYIsInProblem())	//if mouse was in box
 			{
 				if(Main.mse.y < Main.pixel.height/2)	//if mouse was on green box
 				{
@@ -102,8 +102,8 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 			}
 			else		//if mouse wasn't in box
 			{
-				//if mouse was not on a box
-				Main.line.addProblem(Main.mse.x+Main.line.camX);
+				if(mouseIsCloseToLine())
+					Main.line.addProblem(Main.mse.x+Main.line.camX);
 			}
 		}
 		else if(Main.isMouseRight)
@@ -127,6 +127,10 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 	public void mouseMoved(MouseEvent e)
 	{
 		Main.mse.setLocation(e.getX(), e.getY());
+		if(Listening.mouseIsCloseToLine() && Main.line.isValidPos(Main.mse.x+Main.line.camX) && !Main.line.isProblemBox(Main.mse.x+Main.line.camX))
+			Main.drawDot = true;
+		else
+			Main.drawDot = false;
 	}
 
 	public void mouseWheelMoved(MouseWheelEvent e)
@@ -157,5 +161,12 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 		int y = Main.mse.y;
 		int lineY = Main.pixel.height/2;
 		return (y >= lineY - 30 && y <= lineY + 30);
+	}
+	
+	public static boolean mouseYIsInProblem()
+	{
+		int y = Main.mse.y;
+		int lineY = Main.pixel.height/2;
+		return (y >= lineY && y <= lineY+VisualProblemSolution.height/2);
 	}
 }

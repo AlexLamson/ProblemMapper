@@ -50,6 +50,7 @@ public class Main extends Applet implements Runnable
 	private Image screen;
 	public static JFrame frame;
 	public static VisualProblemLine line;
+	public static boolean drawDot = false;
 	
 	public Main()
 	{
@@ -132,7 +133,7 @@ public class Main extends Applet implements Runnable
 		line.render(g);
 		
 		
-		if(Listening.mouseIsCloseToLine() && line.isValidPos(mse.x+line.camX))
+		if(drawDot)
 		{
 			if(isMouseLeft)
 				g.setColor(new Color(100, 100, 100, 255/2));
