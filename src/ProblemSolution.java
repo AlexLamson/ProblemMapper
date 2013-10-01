@@ -20,4 +20,10 @@ public class ProblemSolution
 	{
 		
 	}
+	
+	//return true if ProblemLine line is the same as the innerLine
+	public boolean hasLine(ProblemLine line)
+	{
+		return (line == innerLine);
+	}
 }

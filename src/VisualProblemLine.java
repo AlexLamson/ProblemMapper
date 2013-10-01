@@ -193,6 +193,11 @@ public class VisualProblemLine
 			g2.drawLine((int)(lineX1)-camX, 0, (int)(lineX1)-camX, height);
 			g2.drawLine((int)(lineX2)-camX, 0, (int)(lineX2)-camX, height);
 			g2.setStroke(normalStroke);
+			
+//			int bigStripHeight = Main.pixel.height * (VisualProblemSolution.stripHeight / VisualProblemSolution.height);
+//			g2.setColor(selectedLine);
+			
+			//find some way to determine what color the strip should be from here
 		}
 		
 		for(int i = 0; i < selectedLine.probList.size(); i++)
