@@ -7,7 +7,7 @@ import java.awt.Graphics;
 public class VisualProblemSolution extends ProblemSolution
 {
 	public int x, y;					//x,y is the center of the problem and solution
-	public static final int width = 300, height = 200, stripHeight = 10;	//height is the height of problem + height of solution
+	public static final int width = 300, height = 200, stripeHeight = 10;	//height is the height of problem + height of solution
 	public static final int padding = 50;	//the minimum distance that 2 problems must be apart
 	
 	public Color color;
@@ -71,10 +71,10 @@ public class VisualProblemSolution extends ProblemSolution
 		g.drawString("ID "+problem.id, x+width/2-Main.line.camX - IDwidth, y-height/2 + IDheight);
 		g.drawString("ID "+solutions.get(selectedSolution).id, x+width/2-Main.line.camX - IDwidth, y + IDheight);
 		
-		//add colored strip
+		//add colored stripe
 		g.setColor(color);
-		g.fillRect(x-width/2-Main.line.camX+1, y+height/2-stripHeight, width-1, stripHeight);
+		g.fillRect(x-width/2-Main.line.camX+1, y+height/2-stripeHeight, width-1, stripeHeight);
 		g.setColor(Color.black);
-		g.drawLine(x-width/2-Main.line.camX, y+height/2-stripHeight, x-width/2-Main.line.camX+width, y+height/2-stripHeight);
+		g.drawLine(x-width/2-Main.line.camX, y+height/2-stripeHeight, x-width/2-Main.line.camX+width, y+height/2-stripeHeight);
 	}
 }

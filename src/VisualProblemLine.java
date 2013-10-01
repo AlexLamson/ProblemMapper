@@ -10,20 +10,22 @@ import java.util.ArrayList;
 
 public class VisualProblemLine
 {
-	public ProblemLine mainLine = new ProblemLine();
-	public ProblemLine selectedLine = mainLine;
+	public VisualProblemSolution mainProb;
+	public VisualProblemSolution selectedProb;
 	
 	public int width, height;			//width and height of what is rendered
 	public double circleRadius = 10;	//radi of the circles on the ends of the line
 	public int linePadding = 40;		//padding on sides of line
 	
 	public int camX = 0;
-	public ArrayList<ProblemLine> breadcrumbTrail = new ArrayList<ProblemLine>();	//list of the  problems entered
+	public ArrayList<VisualProblemSolution> breadcrumbTrail = new ArrayList<VisualProblemSolution>();	//list of the  problems entered
 	
 	public VisualProblemLine(int width, int height)
 	{
 		this.width = width;
 		this.height = height;
+		mainProb = new VisualProblemSolution(100, 100);
+		selectedProb = mainProb;
 	}
 	
 	//zoom into the selected problem (by position in the ArrayList)
@@ -33,9 +35,9 @@ public class VisualProblemLine
 		if(pos == -1)
 			return;
 		
-		breadcrumbTrail.add(selectedLine);
-		Main.line.selectedLine = Main.line.selectedLine.probList.get(pos).innerLine;
-		Main.line.camX = 0;
+		breadcrumbTrail.add(selectedProb);
+		selectedProb = selectedProb.innerLine.probList.get(pos);
+		camX = 0;
 		adjustLine();
 	}
 	
@@ -48,7 +50,7 @@ public class VisualProblemLine
 		}
 		else
 		{
-			Main.line.selectedLine = breadcrumbTrail.get(breadcrumbTrail.size()-1);
+			selectedProb = breadcrumbTrail.get(breadcrumbTrail.size()-1);
 			breadcrumbTrail.remove(breadcrumbTrail.size()-1);
 			adjustLine();
 			camX = 0;
@@ -58,9 +60,9 @@ public class VisualProblemLine
 	//zoom out to the main line
 	public void zoomOutToMain()
 	{
-		Main.line.selectedLine = Main.line.mainLine;
+		selectedProb = mainProb;
 		adjustLine();
-		Main.line.camX = 0;
+		camX = 0;
 	}
 	
 	public void addProblem(int x)
@@ -69,12 +71,12 @@ public class VisualProblemLine
 			return;
 		
 		//determine where to add in arraylist based on x val
-		int pos = selectedLine.probList.size();
-		if(selectedLine.probList.size() == 0)
+		int pos = selectedProb.innerLine.probList.size();
+		if(selectedProb.innerLine.probList.size() == 0)
 			pos = 0;
-		for(int i = 0; i < selectedLine.probList.size(); i++)
+		for(int i = 0; i < selectedProb.innerLine.probList.size(); i++)
 		{
-			VisualProblemSolution vProb = selectedLine.probList.get(i);
+			VisualProblemSolution vProb = selectedProb.innerLine.probList.get(i);
 			if(x < vProb.x-VisualProblemSolution.width/2 && !(x >= vProb.x-VisualProblemSolution.width/2 && x <= vProb.x+VisualProblemSolution.width/2))
 			{
 				pos = i;
@@ -83,7 +85,7 @@ public class VisualProblemLine
 		}
 		
 		//add in the new problem
-		selectedLine.probList.add(pos, new VisualProblemSolution(x, height/2));
+		selectedProb.innerLine.probList.add(pos, new VisualProblemSolution(x, height/2));
 		
 		adjustLine();
 	}
@@ -91,33 +93,33 @@ public class VisualProblemLine
 	//adjust line to fit current problems & equally space problems
 	public void adjustLine()
 	{
-		if(selectedLine.probList.size() == 0)
+		if(selectedProb.innerLine.probList.size() == 0)
 		{
 			width = Main.pixel.width;
 		}
 		else
 		{
 			//expand line to fit new problems
-			width = selectedLine.probList.size()*(VisualProblemSolution.width + VisualProblemSolution.padding) + VisualProblemSolution.padding + linePadding*2;
+			width = selectedProb.innerLine.probList.size()*(VisualProblemSolution.width + VisualProblemSolution.padding) + VisualProblemSolution.padding + linePadding*2;
 		}
 		
 		//adjust x positions of problems
-		for(int i = 0; i < selectedLine.probList.size(); i++)
-			selectedLine.probList.get(i).x = linePadding+(VisualProblemSolution.padding+VisualProblemSolution.width)*(i+1)-VisualProblemSolution.width/2;
+		for(int i = 0; i < selectedProb.innerLine.probList.size(); i++)
+			selectedProb.innerLine.probList.get(i).x = linePadding+(VisualProblemSolution.padding+VisualProblemSolution.width)*(i+1)-VisualProblemSolution.width/2;
 	}
 	
 	//returns -1 if x value isn't a problem
 	public int getProblemFromX(int x)
 	{
-		if(selectedLine.probList.size() == 0)		//there are no problems
+		if(selectedProb.innerLine.probList.size() == 0)		//there are no problems
 			return -1;
 		
 		if(!isValidPos(x))		//the point given is out of bounds
 			return -1;
 		
-		for(int i = 0; i < selectedLine.probList.size(); i++)
+		for(int i = 0; i < selectedProb.innerLine.probList.size(); i++)
 		{
-			VisualProblemSolution vProb = selectedLine.probList.get(i);
+			VisualProblemSolution vProb = selectedProb.innerLine.probList.get(i);
 			if(x >= vProb.x-VisualProblemSolution.width/2 && x <= vProb.x+VisualProblemSolution.width/2)
 				return i;
 		}
@@ -127,9 +129,9 @@ public class VisualProblemLine
 	//return true if the x value isn't on a problem box
 	public boolean isNotProblemBox(int x)
 	{
-		for(int i = 0; i < selectedLine.probList.size(); i++)
+		for(int i = 0; i < selectedProb.innerLine.probList.size(); i++)
 		{
-			VisualProblemSolution vProb = selectedLine.probList.get(i);
+			VisualProblemSolution vProb = selectedProb.innerLine.probList.get(i);
 			if(x >= vProb.x-VisualProblemSolution.width/2 && x <= vProb.x+VisualProblemSolution.width/2)
 				return false;
 		}
@@ -151,8 +153,8 @@ public class VisualProblemLine
 	
 	public void tick()
 	{
-		for(int i = 0; i < selectedLine.probList.size(); i++)
-			selectedLine.probList.get(i).tick();
+		for(int i = 0; i < selectedProb.innerLine.probList.size(); i++)
+			selectedProb.innerLine.probList.get(i).tick();
 	}
 	
 	public void render(Graphics g)
@@ -167,7 +169,7 @@ public class VisualProblemLine
 		Graphics2D g2 = (Graphics2D)g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
-		if(mainLine == selectedLine)
+		if(mainProb == selectedProb)
 		{
 			//draw the line
 			g2.setColor(Color.black);
@@ -182,27 +184,36 @@ public class VisualProblemLine
 		}
 		else
 		{
+			//fill in green and red background
+			g.setColor(new Color(210, 240, 190));
+			g.fillRect(lineX1-camX, 0, width-2*(lineX1), Main.pixel.height/2);
+			g.setColor(new Color(255, 175, 165));
+			g.fillRect(lineX1-camX, Main.pixel.height/2, width-2*(lineX1), Main.pixel.height/2);
+			
 			//draw the line
 			g2.setColor(Color.black);
 			g2.setStroke(thickStroke);
 			g2.drawLine(0, lineY, Main.pixel.width, lineY);
 			
-			//draw the circles on the ends
+			//draw colored stripe on the bottom
+			int bigStripeHeight = (int)((double)Main.pixel.height * VisualProblemSolution.stripeHeight / VisualProblemSolution.height);
+			g2.setColor(selectedProb.color);
+			g2.fillRect(lineX1-camX, Main.pixel.height-bigStripeHeight, lineX2-lineX1, bigStripeHeight);
 			g2.setColor(Color.black);
 			g2.setStroke(thickStroke);
-			g2.drawLine((int)(lineX1)-camX, 0, (int)(lineX1)-camX, height);
-			g2.drawLine((int)(lineX2)-camX, 0, (int)(lineX2)-camX, height);
+			g2.drawLine(lineX1-camX, Main.pixel.height-bigStripeHeight, width-linePadding-camX, Main.pixel.height-bigStripeHeight);
+			
+			//draw the vertical lines
+			g2.setColor(Color.black);
+			g2.setStroke(thickStroke);
+			g2.drawLine(lineX1-camX, 0, lineX1-camX, height);
+			g2.drawLine(lineX2-camX, 0, lineX2-camX, height);
 			g2.setStroke(normalStroke);
-			
-//			int bigStripHeight = Main.pixel.height * (VisualProblemSolution.stripHeight / VisualProblemSolution.height);
-//			g2.setColor(selectedLine);
-			
-			//find some way to determine what color the strip should be from here
 		}
 		
-		for(int i = 0; i < selectedLine.probList.size(); i++)
+		for(int i = 0; i < selectedProb.innerLine.probList.size(); i++)
 		{
-			selectedLine.probList.get(i).render(g);
+			selectedProb.innerLine.probList.get(i).render(g);
 		}
 	}
 }

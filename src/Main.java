@@ -125,23 +125,9 @@ public class Main extends Applet implements Runnable
 	{
 		Graphics g = screen.getGraphics();
 		
-		
-		
-		if(line.mainLine == line.selectedLine)
-		{
-			g.setColor(new Color(230, 230, 230));
-			g.fillRect(0, 0, pixel.width, pixel.height);
-		}
-		else
-		{
-			g.setColor(new Color(210, 240, 190));
-			g.fillRect(0, 0, pixel.width, pixel.height/2);
-			
-			g.setColor(new Color(255, 175, 165));
-			g.fillRect(0, pixel.height/2, pixel.width, pixel.height/2);
-		}
-		
-		
+		//fill the background
+		g.setColor(new Color(230, 230, 230));
+		g.fillRect(0, 0, Main.pixel.width, Main.pixel.height);
 		
 		line.render(g);
 		
