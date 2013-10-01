@@ -3,6 +3,7 @@
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Random;
 
 public class VisualProblemSolution extends ProblemSolution
 {
@@ -11,12 +12,13 @@ public class VisualProblemSolution extends ProblemSolution
 	public static final int padding = 50;	//the minimum distance that 2 problems must be apart
 	
 	public Color color;
+	public static int colorPos = 0;
 	
 	public VisualProblemSolution(int x, int y)
 	{
 		this.x = x;
 		this.y = y;
-		color = niceColor(new Color(0, 135, 255));		//random colors are tinted light blue
+		color = niceColor();
 	}
 	
 	// generate random int between floor and ceiling, inclusive
@@ -27,21 +29,19 @@ public class VisualProblemSolution extends ProblemSolution
 		return (int)((Math.random()*(1.0+ceiling-floor))+floor);
 	}
 	
-	//return a random Color tinted with Color mix
-	public Color niceColor(Color mix)
+	//use golden ratio to create pleasant colors
+	//http://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/
+	public static Color niceColor()
 	{
-		int red = random(0, 255);
-		int green = random(0, 255);
-		int blue = random(0, 255);
+		double goldenRatioConj = (1.0 + Math.sqrt(5.0)) / 2.0;
+		float hue = new Random().nextFloat();
 		
-		// mix the color
-		red = (red + mix.getRed()) / 2;
-		green = (green + mix.getGreen()) / 2;
-		blue = (blue + mix.getBlue()) / 2;
+		hue += goldenRatioConj * (colorPos / (5 * Math.random()));
+		hue = hue % 1;
 		
-		Color color = new Color(red, green, blue);
-		return color;
+		return Color.getHSBColor(hue, 0.5f, 0.95f);
 	}
+
 	
 	public void tick()
 	{
