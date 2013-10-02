@@ -86,7 +86,7 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 		//if the mouse was close to the line, create a ProblemSolution at that point
 		if(Main.isMouseLeft)
 		{
-			if(Main.line.isProblemBox(Main.mse.x + Main.line.camX) && mouseYIsInProblem())	//if mouse was in box
+			if(Main.line.isProblemBox(Main.mse.x + Main.line.selectedProb.camX) && mouseYIsInProblem())	//if mouse was in box
 			{
 				if(Main.mse.y < Main.pixel.height/2)	//if mouse was on green box
 				{
@@ -96,14 +96,14 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 				else	//if mouse was on red box
 				{
 					//zoom in
-					int pos = Main.line.getProblemFromX(Main.mse.x+Main.line.camX);
+					int pos = Main.line.getProblemFromX(Main.mse.x+Main.line.selectedProb.camX);
 					Main.line.zoomTo(pos);
 				}
 			}
 			else		//if mouse wasn't in box
 			{
 				if(mouseIsCloseToLine())
-					Main.line.addProblem(Main.mse.x+Main.line.camX);
+					Main.line.addProblem(Main.mse.x+Main.line.selectedProb.camX);
 			}
 		}
 		else if(Main.isMouseRight)
@@ -127,9 +127,9 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 	public void mouseMoved(MouseEvent e)
 	{
 		Main.mse.setLocation(e.getX(), e.getY());
-		if(Main.line.selectedProb.innerLine.probList.size() == 0 && Listening.mouseIsCloseToLine() && Main.line.isValidPos(Main.mse.x+Main.line.camX))
+		if(Main.line.selectedProb.innerLine.probList.size() == 0 && Listening.mouseIsCloseToLine() && Main.line.isValidPos(Main.mse.x+Main.line.selectedProb.camX))
 			Main.drawDot = true;
-		else if(Listening.mouseIsCloseToLine() && Main.line.isValidPos(Main.mse.x+Main.line.camX) && !Main.line.isProblemBox(Main.mse.x+Main.line.camX))
+		else if(Listening.mouseIsCloseToLine() && Main.line.isValidPos(Main.mse.x+Main.line.selectedProb.camX) && !Main.line.isProblemBox(Main.mse.x+Main.line.selectedProb.camX))
 			Main.drawDot = true;
 		else
 			Main.drawDot = false;

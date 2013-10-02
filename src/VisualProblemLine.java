@@ -17,7 +17,6 @@ public class VisualProblemLine
 	public double circleRadius = 10;	//radi of the circles on the ends of the line
 	public static int linePadding = 40;		//padding on sides of line
 	
-	public int camX = 0;
 	public ArrayList<VisualProblemSolution> breadcrumbTrail = new ArrayList<VisualProblemSolution>();	//list of the  problems entered
 	
 	public VisualProblemLine(int width, int height)
@@ -37,7 +36,6 @@ public class VisualProblemLine
 		
 		breadcrumbTrail.add(selectedProb);
 		selectedProb = selectedProb.innerLine.probList.get(pos);
-		camX = 0;
 		adjustLine();
 	}
 	
@@ -53,7 +51,6 @@ public class VisualProblemLine
 			selectedProb = breadcrumbTrail.get(breadcrumbTrail.size()-1);
 			breadcrumbTrail.remove(breadcrumbTrail.size()-1);
 			adjustLine();
-			camX = 0;
 		}
 	}
 	
@@ -62,7 +59,6 @@ public class VisualProblemLine
 	{
 		selectedProb = mainProb;
 		adjustLine();
-		camX = 0;
 	}
 	
 	public void addProblem(int x)
@@ -163,21 +159,21 @@ public class VisualProblemLine
 			//draw the line
 			g2.setColor(Color.black);
 			g2.setStroke(thickStroke);
-			g2.drawLine(lineX1-camX, lineY, lineX2-camX, lineY);
+			g2.drawLine(lineX1-selectedProb.camX, lineY, lineX2-selectedProb.camX, lineY);
 			
 			//draw the circles on the ends
 			g2.setColor(Color.black);
 			g2.setStroke(normalStroke);
-			g2.fillOval((int)(lineX1-circleRadius)-camX, (int)(lineY-circleRadius), (int)circleRadius*2, (int)circleRadius*2);
-			g2.fillOval((int)(lineX2-circleRadius)-camX, (int)(lineY-circleRadius), (int)circleRadius*2, (int)circleRadius*2);
+			g2.fillOval((int)(lineX1-circleRadius)-selectedProb.camX, (int)(lineY-circleRadius), (int)circleRadius*2, (int)circleRadius*2);
+			g2.fillOval((int)(lineX2-circleRadius)-selectedProb.camX, (int)(lineY-circleRadius), (int)circleRadius*2, (int)circleRadius*2);
 		}
 		else
 		{
 			//fill in green and red background
 			g.setColor(new Color(210, 240, 190));
-			g.fillRect(lineX1-camX, 0, width-2*(lineX1), Main.pixel.height/2);
+			g.fillRect(lineX1-selectedProb.camX, 0, width-2*(lineX1), Main.pixel.height/2);
 			g.setColor(new Color(255, 175, 165));
-			g.fillRect(lineX1-camX, Main.pixel.height/2, width-2*(lineX1), Main.pixel.height/2);
+			g.fillRect(lineX1-selectedProb.camX, Main.pixel.height/2, width-2*(lineX1), Main.pixel.height/2);
 			
 			//draw the line
 			g2.setColor(Color.black);
@@ -187,16 +183,16 @@ public class VisualProblemLine
 			//draw colored stripe on the bottom
 			int bigStripeHeight = (int)((double)Main.pixel.height * VisualProblemSolution.stripeHeight / VisualProblemSolution.height);
 			g2.setColor(selectedProb.color);
-			g2.fillRect(lineX1-camX, Main.pixel.height-bigStripeHeight, lineX2-lineX1, bigStripeHeight);
+			g2.fillRect(lineX1-selectedProb.camX, Main.pixel.height-bigStripeHeight, lineX2-lineX1, bigStripeHeight);
 			g2.setColor(Color.black);
 			g2.setStroke(thickStroke);
-			g2.drawLine(lineX1-camX, Main.pixel.height-bigStripeHeight, width-linePadding-camX, Main.pixel.height-bigStripeHeight);
+			g2.drawLine(lineX1-selectedProb.camX, Main.pixel.height-bigStripeHeight, width-linePadding-selectedProb.camX, Main.pixel.height-bigStripeHeight);
 			
 			//draw the vertical lines
 			g2.setColor(Color.black);
 			g2.setStroke(thickStroke);
-			g2.drawLine(lineX1-camX, 0, lineX1-camX, height);
-			g2.drawLine(lineX2-camX, 0, lineX2-camX, height);
+			g2.drawLine(lineX1-selectedProb.camX, 0, lineX1-selectedProb.camX, height);
+			g2.drawLine(lineX2-selectedProb.camX, 0, lineX2-selectedProb.camX, height);
 			g2.setStroke(normalStroke);
 		}
 		

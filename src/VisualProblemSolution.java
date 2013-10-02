@@ -11,6 +11,8 @@ public class VisualProblemSolution extends ProblemSolution
 	public static final int width = 300, height = 200, stripeHeight = 10;	//height is the height of problem + height of solution
 	public static final int padding = 50;	//the minimum distance that 2 problems must be apart
 	
+	public int camX = 0;
+	
 	public Color color;
 	public static int colorPos = 0;
 	
@@ -55,26 +57,26 @@ public class VisualProblemSolution extends ProblemSolution
 		
 		//fill problem
 		g.setColor(red);
-		g.fillRect(x-width/2-Main.line.camX, y, width, height/2);
+		g.fillRect(x-width/2-Main.line.selectedProb.camX, y, width, height/2);
 		
 		//fill solution
 		g.setColor(green);
-		g.fillRect(x-width/2-Main.line.camX, y-height/2, width, height/2);
+		g.fillRect(x-width/2-Main.line.selectedProb.camX, y-height/2, width, height/2);
 		
 		//draw black lines
 		g.setColor(Color.black);
-		g.drawRect(x-width/2-Main.line.camX, y-height/2, width, height);
-		g.drawLine(x-width/2-Main.line.camX, y, x+width/2-Main.line.camX, y);
+		g.drawRect(x-width/2-Main.line.selectedProb.camX, y-height/2, width, height);
+		g.drawLine(x-width/2-Main.line.selectedProb.camX, y, x+width/2-Main.line.selectedProb.camX, y);
 		
 		//draw IDs
 		int IDwidth = 40, IDheight = 15;
-		g.drawString("ID "+problem.id, x+width/2-Main.line.camX - IDwidth, y-height/2 + IDheight);
-		g.drawString("ID "+solutions.get(selectedSolution).id, x+width/2-Main.line.camX - IDwidth, y + IDheight);
+		g.drawString("ID "+problem.id, x+width/2-Main.line.selectedProb.camX - IDwidth, y-height/2 + IDheight);
+		g.drawString("ID "+solutions.get(selectedSolution).id, x+width/2-Main.line.selectedProb.camX - IDwidth, y + IDheight);
 		
 		//add colored stripe
 		g.setColor(color);
-		g.fillRect(x-width/2-Main.line.camX+1, y+height/2-stripeHeight, width-1, stripeHeight);
+		g.fillRect(x-width/2-Main.line.selectedProb.camX+1, y+height/2-stripeHeight, width-1, stripeHeight);
 		g.setColor(Color.black);
-		g.drawLine(x-width/2-Main.line.camX, y+height/2-stripeHeight, x-width/2-Main.line.camX+width, y+height/2-stripeHeight);
+		g.drawLine(x-width/2-Main.line.selectedProb.camX, y+height/2-stripeHeight, x-width/2-Main.line.selectedProb.camX+width, y+height/2-stripeHeight);
 	}
 }

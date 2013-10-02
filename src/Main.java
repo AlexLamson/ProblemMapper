@@ -88,14 +88,14 @@ public class Main extends Applet implements Runnable
 	{
 		if(line.width < pixel.width)
 		{
-			line.camX = 0;
+			line.selectedProb.camX = 0;
 		}
 		else
 		{
-			if(line.camX+pixel.width+Main.camSpeed <= line.width)
-				line.camX += Main.camSpeed;
+			if(line.selectedProb.camX+pixel.width+Main.camSpeed <= line.width)
+				line.selectedProb.camX += Main.camSpeed;
 			else
-				line.camX = line.width-pixel.width;
+				line.selectedProb.camX = line.width-pixel.width;
 		}
 	}
 	
@@ -103,14 +103,14 @@ public class Main extends Applet implements Runnable
 	{
 		if(line.width < pixel.width)
 		{
-			line.camX = 0;
+			line.selectedProb.camX = 0;
 		}
 		else
 		{
-			if(line.camX-Main.camSpeed >= 0)
-				line.camX -= Main.camSpeed;
+			if(line.selectedProb.camX-Main.camSpeed >= 0)
+				line.selectedProb.camX -= Main.camSpeed;
 			else
-				line.camX = 0;
+				line.selectedProb.camX = 0;
 		}
 	}
 
