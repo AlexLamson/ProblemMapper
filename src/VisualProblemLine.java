@@ -127,6 +127,8 @@ public class VisualProblemLine
 		
 		if(minVal - (int)minVal > 1 - VisualProblemSolution.padding / denom && minVal - (int)minVal < 1.0)
 			return false;
+		if(minVal < 0.0)
+			return false;
 		return true;
 	}
 	

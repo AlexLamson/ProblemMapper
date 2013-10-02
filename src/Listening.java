@@ -86,7 +86,7 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 		//if the mouse was close to the line, create a ProblemSolution at that point
 		if(Main.isMouseLeft)
 		{
-			if(Main.line.isProblemBox(Main.mse.x+Main.line.camX) && mouseYIsInProblem())	//if mouse was in box
+			if(Main.line.isProblemBox(Main.mse.x + Main.line.camX) && mouseYIsInProblem())	//if mouse was in box
 			{
 				if(Main.mse.y < Main.pixel.height/2)	//if mouse was on green box
 				{
