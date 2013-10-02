@@ -5,7 +5,9 @@
  * Problem Mapper program
  * 
  * Controls:
- * left click - create a problem
+ * left click - create a problem/zoom into problem
+ * right click - zoom out 1 level
+ * scroll/arrows - move along line
  */
 
 import java.applet.*;
@@ -38,7 +40,6 @@ public class Main extends Applet implements Runnable
 	public static Dimension size = new Dimension(screenWidth*2/3,screenHeight*2/3);				//drawable area
 	public static Dimension pixel = new Dimension(size.width/pixelSize, size.height/pixelSize);	//"pixels" in drawable area
 	
-//	public static int camX = 0;
 	public static int camSpeed = 10;
 	
 	public static Point mse = new Point(0, 0);
@@ -155,8 +156,11 @@ public class Main extends Applet implements Runnable
 	{
 		screen = createVolatileImage(pixel.width, pixel.height);	//actually use the graphics card (less lag)
 		
-		// render();
-		// JOptionPane.showMessageDialog(null, "Controls:\n\nWho knows!?");
+		if(!debugMode)
+		{
+			render();
+			 JOptionPane.showMessageDialog(null, "Controls:\n\nleft click - create a problem/zoom into problem\nright click - zoom out 1 level\nscroll/arrows - move along line");
+		}
 		
 		while(isRunning)
 		{

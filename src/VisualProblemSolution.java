@@ -26,7 +26,7 @@ public class VisualProblemSolution extends ProblemSolution
 	{
 		if(ceiling < 0)
 			return 0;
-		return (int)((Math.random()*(1.0+ceiling-floor))+floor);
+		return (int)((Math.random()*(1.0 + ceiling - floor)) + floor);
 	}
 	
 	//use golden ratio to create pleasant colors

@@ -15,7 +15,7 @@ public class VisualProblemLine
 	
 	public int width, height;			//width and height of what is rendered
 	public double circleRadius = 10;	//radi of the circles on the ends of the line
-	public int linePadding = 40;		//padding on sides of line
+	public static int linePadding = 40;		//padding on sides of line
 	
 	public int camX = 0;
 	public ArrayList<VisualProblemSolution> breadcrumbTrail = new ArrayList<VisualProblemSolution>();	//list of the  problems entered
@@ -117,13 +117,7 @@ public class VisualProblemLine
 		if(!isValidPos(x))		//the point given is out of bounds
 			return -1;
 		
-		for(int i = 0; i < selectedProb.innerLine.probList.size(); i++)
-		{
-			VisualProblemSolution vProb = selectedProb.innerLine.probList.get(i);
-			if(x >= vProb.x-VisualProblemSolution.width/2 && x <= vProb.x+VisualProblemSolution.width/2)
-				return i;
-		}
-		return -1;
+		return (x - VisualProblemLine.linePadding) / (VisualProblemSolution.width + VisualProblemSolution.padding);
 	}
 	
 	//return true if the x value isn't on a problem box
