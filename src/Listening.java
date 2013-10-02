@@ -80,7 +80,7 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 	{
 		mouseToggle(e, true);
 	}
-
+	
 	public void mouseReleased(MouseEvent e)
 	{
 		//if the mouse was close to the line, create a ProblemSolution at that point
@@ -127,7 +127,9 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 	public void mouseMoved(MouseEvent e)
 	{
 		Main.mse.setLocation(e.getX(), e.getY());
-		if(Listening.mouseIsCloseToLine() && Main.line.isValidPos(Main.mse.x+Main.line.camX) && !Main.line.isProblemBox(Main.mse.x+Main.line.camX))
+		if(Main.line.selectedProb.innerLine.probList.size() == 0 && Listening.mouseIsCloseToLine() && Main.line.isValidPos(Main.mse.x+Main.line.camX))
+			Main.drawDot = true;
+		else if(Listening.mouseIsCloseToLine() && Main.line.isValidPos(Main.mse.x+Main.line.camX) && !Main.line.isProblemBox(Main.mse.x+Main.line.camX))
 			Main.drawDot = true;
 		else
 			Main.drawDot = false;

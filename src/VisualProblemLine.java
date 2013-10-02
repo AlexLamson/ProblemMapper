@@ -67,22 +67,13 @@ public class VisualProblemLine
 	
 	public void addProblem(int x)
 	{
-		if(!isValidPos(x))
+		if(!isValidPos(x) || isProblemBox(x))
 			return;
 		
 		//determine where to add in arraylist based on x val
-		int pos = selectedProb.innerLine.probList.size();
-		if(selectedProb.innerLine.probList.size() == 0)
+		int pos = getProblemFromX(x);
+		if(selectedProb.innerLine.probList.size() == 0)	//there are no problems
 			pos = 0;
-		for(int i = 0; i < selectedProb.innerLine.probList.size(); i++)
-		{
-			VisualProblemSolution vProb = selectedProb.innerLine.probList.get(i);
-			if(x < vProb.x-VisualProblemSolution.width/2 && !(x >= vProb.x-VisualProblemSolution.width/2 && x <= vProb.x+VisualProblemSolution.width/2))
-			{
-				pos = i;
-				break;
-			}
-		}
 		
 		//add in the new problem
 		selectedProb.innerLine.probList.add(pos, new VisualProblemSolution(x, height/2));
@@ -117,24 +108,26 @@ public class VisualProblemLine
 		if(!isValidPos(x))		//the point given is out of bounds
 			return -1;
 		
-		return (x - VisualProblemLine.linePadding) / (VisualProblemSolution.width + VisualProblemSolution.padding);
+		return (x-VisualProblemLine.linePadding)/(VisualProblemSolution.width+VisualProblemSolution.padding);
 	}
 	
 	//return true if the x value isn't on a problem box
 	public boolean isNotProblemBox(int x)
 	{
-		for(int i = 0; i < selectedProb.innerLine.probList.size(); i++)
-		{
-			VisualProblemSolution vProb = selectedProb.innerLine.probList.get(i);
-			if(x >= vProb.x-VisualProblemSolution.width/2 && x <= vProb.x+VisualProblemSolution.width/2)
-				return false;
-		}
-		return true;
+		return !isProblemBox(x);
 	}
 	
 	public boolean isProblemBox(int x)
 	{
-		return !isNotProblemBox(x);
+		if(selectedProb.innerLine.probList.size() == 0)		//there are no problems
+			return false;
+		
+		double denom = (VisualProblemSolution.width + VisualProblemSolution.padding);
+		double minVal = ((double)x - VisualProblemLine.linePadding - VisualProblemSolution.padding) / denom;
+		
+		if(minVal - (int)minVal > 1 - VisualProblemSolution.padding / denom && minVal - (int)minVal < 1.0)
+			return false;
+		return true;
 	}
 	
 	//return false if x value is not in the bounds of the line

@@ -119,7 +119,6 @@ public class Main extends Applet implements Runnable
 //		if(frame.getWidth() != realSize.width || frame.getHeight() != realSize.height)
 //			frame.pack();
 		
-		
 		line.tick();
 	}
 
@@ -132,7 +131,6 @@ public class Main extends Applet implements Runnable
 		g.fillRect(0, 0, Main.pixel.width, Main.pixel.height);
 		
 		line.render(g);
-		
 		
 		if(drawDot)
 		{
