@@ -143,6 +143,13 @@ public class Main extends Applet implements Runnable
 			g.fillOval(mse.x-circleSize/2, pixel.height/2-circleSize/2, circleSize, circleSize);
 		}
 		
+		//render scrollbar
+		int scrollbarHeight = 30;
+		g.setColor(new Color(180, 180, 180));
+		g.fillRect(0, 0, Main.pixel.width, scrollbarHeight);
+		g.setColor(new Color(100, 100, 100));
+		g.fillRect((int)((double)Main.pixel.width * line.selectedProb.camX / line.width), 0, (int)((double)Main.pixel.width * Main.pixel.width / line.width), scrollbarHeight);
+		
 		
 		g = getGraphics();
 
