@@ -12,4 +12,4 @@ Controls
 
 * Right clicking above or below the problem boxes y values = zoom out 1 level
 * Right clicking on a problem box = zoom in 1 level
-* (WIP) Left clicking on a problem box = change text in box
+* Left clicking on a problem box = change text in box
