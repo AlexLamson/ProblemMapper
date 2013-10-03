@@ -25,11 +25,15 @@ public class VisualProblemSolution extends ProblemSolution
 		color = niceColor();
 	}
 	
+	// generate random double between floor and ceiling, inclusive
+	public int random(double floor, double ceiling)
+	{
+		return (Math.random()*(1.0 + ceiling - floor)) + floor;
+	}
+	
 	// generate random int between floor and ceiling, inclusive
 	public int random(int floor, int ceiling)
 	{
-		if(ceiling < 0)
-			return 0;
 		return (int)((Math.random()*(1.0 + ceiling - floor)) + floor);
 	}
 	
