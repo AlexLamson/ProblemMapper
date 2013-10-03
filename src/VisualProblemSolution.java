@@ -26,19 +26,19 @@ public class VisualProblemSolution extends ProblemSolution
 	}
 	
 	// generate random float between floor and ceiling, inclusive
-	public float random(float floor, float ceiling)
+	public static float random(float floor, float ceiling)
 	{
-		return (Math.random()*(1.0 + ceiling - floor)) + floor;
+		return (float)((Math.random()*(1.0 + ceiling - floor)) + floor);
 	}
 	
 	// generate random double between floor and ceiling, inclusive
-	public double random(double floor, double ceiling)
+	public static double random(double floor, double ceiling)
 	{
 		return (Math.random()*(1.0 + ceiling - floor)) + floor;
 	}
 	
 	// generate random int between floor and ceiling, inclusive
-	public int random(int floor, int ceiling)
+	public static int random(int floor, int ceiling)
 	{
 		return (int)((Math.random()*(1.0 + ceiling - floor)) + floor);
 	}
