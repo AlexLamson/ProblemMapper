@@ -25,8 +25,14 @@ public class VisualProblemSolution extends ProblemSolution
 		color = niceColor();
 	}
 	
+	// generate random float between floor and ceiling, inclusive
+	public float random(float floor, float ceiling)
+	{
+		return (Math.random()*(1.0 + ceiling - floor)) + floor;
+	}
+	
 	// generate random double between floor and ceiling, inclusive
-	public int random(double floor, double ceiling)
+	public double random(double floor, double ceiling)
 	{
 		return (Math.random()*(1.0 + ceiling - floor)) + floor;
 	}
@@ -47,9 +53,8 @@ public class VisualProblemSolution extends ProblemSolution
 		hue += goldenRatioConj * (colorPos / (5 * Math.random()));
 		hue = hue % 1;
 		
-		return Color.getHSBColor(hue, 0.5f, 0.95f);
+		return Color.getHSBColor(hue, random(0.5f-0.1f, 0.5f+0.1f), random(0.95f-0.1f, 0.95f+0.1f));
 	}
-
 	
 	public void tick()
 	{
