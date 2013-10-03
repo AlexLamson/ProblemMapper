@@ -126,6 +126,10 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 					//expand the solutions
 					
 				}
+				else
+				{
+					Main.line.zoomOutALevel();
+				}
 			}
 			else
 			{
