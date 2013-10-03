@@ -4,11 +4,12 @@
 public class Solution
 {
 	public ID id;
-	public String text = "";
+	public String text;
 	
 	public Solution()
 	{
 		id = new ID();
+		text = "No solution";
 	}
 	
 	public Solution(String text)
