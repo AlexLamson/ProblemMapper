@@ -9,6 +9,8 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
+import javax.swing.JOptionPane;
+
 public class Listening implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener
 {
 
@@ -86,18 +88,21 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 		//if the mouse was close to the line, create a ProblemSolution at that point
 		if(Main.isMouseLeft)
 		{
-			if(Main.line.isProblemBox(Main.mse.x + Main.line.selectedProb.camX) && mouseYIsInProblem())	//if mouse was in box
+			if(Main.line.mouseXIsInBox(Main.mse.x + Main.line.selectedProb.camX))	//if mouse was in box
 			{
-				if(Main.mse.y < Main.pixel.height/2)	//if mouse was on green box
+				if(mouseYIsInProblem())	//if mouse was in red box
 				{
-					//expand the solutions
-					
+					//change problem
+					String response = JOptionPane.showInputDialog(null, "Enter new problem", "Enter new problem", JOptionPane.OK_CANCEL_OPTION);
+					if(response != null)
+						Main.line.changeProblemText(Main.mse.x + Main.line.selectedProb.camX, response);
 				}
-				else	//if mouse was on red box
+				else if(mouseYIsInSolution())	//if mouse was in green box
 				{
-					//zoom in
-					int pos = Main.line.getProblemFromX(Main.mse.x+Main.line.selectedProb.camX);
-					Main.line.zoomTo(pos);
+					//change current solution
+					String response = JOptionPane.showInputDialog(null, "Enter new solution", "Enter new solution", JOptionPane.OK_CANCEL_OPTION);
+					if(response != null)
+						Main.line.changeSolutionText(Main.mse.x + Main.line.selectedProb.camX, response);
 				}
 			}
 			else		//if mouse wasn't in box
@@ -108,8 +113,24 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 		}
 		else if(Main.isMouseRight)
 		{
-//			Main.line.zoomOut();
-			Main.line.zoomOutALevel();
+			if(Main.line.mouseXIsInBox(Main.mse.x + Main.line.selectedProb.camX))	//if mouse was in box
+			{
+				if(mouseYIsInProblem())	//if mouse was in red box
+				{
+					//zoom in
+					int pos = Main.line.getProblemFromX(Main.mse.x+Main.line.selectedProb.camX);
+					Main.line.zoomTo(pos);
+				}
+				else if(mouseYIsInSolution())
+				{
+					//expand the solutions
+					
+				}
+			}
+			else
+			{
+				Main.line.zoomOutALevel();
+			}
 		}
 		mouseToggle(e, false);
 	}
@@ -129,7 +150,7 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 		Main.mse.setLocation(e.getX(), e.getY());
 		if(Main.line.selectedProb.innerLine.probList.size() == 0 && Listening.mouseIsCloseToLine() && Main.line.isValidPos(Main.mse.x+Main.line.selectedProb.camX))
 			Main.drawDot = true;
-		else if(Listening.mouseIsCloseToLine() && Main.line.isValidPos(Main.mse.x+Main.line.selectedProb.camX) && !Main.line.isProblemBox(Main.mse.x+Main.line.selectedProb.camX))
+		else if(Listening.mouseIsCloseToLine() && Main.line.isValidPos(Main.mse.x+Main.line.selectedProb.camX) && !Main.line.mouseXIsInBox(Main.mse.x+Main.line.selectedProb.camX))
 			Main.drawDot = true;
 		else
 			Main.drawDot = false;
@@ -169,6 +190,13 @@ public class Listening implements KeyListener, MouseListener, MouseMotionListene
 	{
 		int y = Main.mse.y;
 		int lineY = Main.pixel.height/2;
-		return (y >= lineY && y <= lineY+VisualProblemSolution.height/2);
+		return (y >= lineY && y <= lineY + VisualProblemSolution.height/2);
+	}
+	
+	public static boolean mouseYIsInSolution()
+	{
+		int y = Main.mse.y;
+		int lineY = Main.pixel.height/2;
+		return (y >= lineY - VisualProblemSolution.height/2 && y <= lineY);
 	}
 }

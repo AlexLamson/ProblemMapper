@@ -27,6 +27,17 @@ public class VisualProblemLine
 		selectedProb = mainProb;
 	}
 	
+	public void changeProblemText(int x, String str)
+	{
+		selectedProb.innerLine.probList.get(getProblemFromX(x)).problem.text = str+"";
+	}
+	
+	public void changeSolutionText(int x, String str)
+	{
+		int pos = getProblemFromX(x);
+		selectedProb.innerLine.probList.get(pos).solutions.get(selectedProb.innerLine.probList.get(pos).selectedSolution).text = str+"";
+	}
+	
 	//zoom into the selected problem (by position in the ArrayList)
 	public void zoomTo(int pos)
 	{
@@ -63,7 +74,7 @@ public class VisualProblemLine
 	
 	public void addProblem(int x)
 	{
-		if(!isValidPos(x) || isProblemBox(x))
+		if(!isValidPos(x) || mouseXIsInBox(x))
 			return;
 		
 		//determine where to add in arraylist based on x val
@@ -110,10 +121,10 @@ public class VisualProblemLine
 	//return true if the x value isn't on a problem box
 	public boolean isNotProblemBox(int x)
 	{
-		return !isProblemBox(x);
+		return !mouseXIsInBox(x);
 	}
 	
-	public boolean isProblemBox(int x)
+	public boolean mouseXIsInBox(int x)
 	{
 		if(selectedProb.innerLine.probList.size() == 0)		//there are no problems
 			return false;

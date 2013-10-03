@@ -3,7 +3,7 @@
 
 public class ID
 {
-	public static long nextVal = 0;
+	public static long nextVal = -1;
 	public long val = 0;
 	
 	public ID()

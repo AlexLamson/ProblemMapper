@@ -143,7 +143,6 @@ public class Main extends Applet implements Runnable
 			g.fillOval(mse.x-circleSize/2, pixel.height/2-circleSize/2, circleSize, circleSize);
 		}
 		
-		
 		g = getGraphics();
 
 		g.drawImage(screen, 0, 0, size.width, size.height, 0, 0, pixel.width, pixel.height, null);
@@ -157,7 +156,7 @@ public class Main extends Applet implements Runnable
 		if(!debugMode)
 		{
 			render();
-			 JOptionPane.showMessageDialog(null, "Controls:\n\nleft click - create a problem/zoom into problem\nright click - zoom out 1 level\nscroll/arrows - move along line");
+			JOptionPane.showMessageDialog(null, "Controls:\n\nleft click - create a problem/zoom into problem\nright click - zoom out 1 level\nscroll/arrows - move along line");
 		}
 		
 		while(isRunning)
